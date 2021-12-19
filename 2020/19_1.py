@@ -15,6 +15,16 @@ def clean(x):
             cleaned.append([[re.findall(pat2,line)[0]], [re.findall(pat2,line)[1]]])
         else:
             res = re.findall(pat,line)
+            index = res[0]
+            try:
+                idx = res.index("|")
+                first = res[1:idx]
+                second = res[idx+1:]
+                result = [[index],first,second]
+            except:
+                first = res[1:]
+                result = [[index],first]
+            cleaned.append(result)
 
     return cleaned, data
 
@@ -33,6 +43,8 @@ def gen(rules):
         #should be left with rule 0
 
 
+print(x)
 rules, data = clean(x)
 
-print(rules)
+for i in rules:
+    print(i)
