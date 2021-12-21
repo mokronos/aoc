@@ -3,7 +3,7 @@ import re
 
 x = open("data19.txt").read()
 
-def gen_regex(r="0", depth = 15):
+def gen_regex(r="0", depth = 25):
     if depth == 0:
         return ""
     if rules[r][0][0].startswith('"'):
@@ -20,6 +20,9 @@ rules = {}
 for rule in rulesraw.split("\n"):
     num, r = rule.split(": ")
     rules[num] = [s.split() for s in r.split(" | ")]
+
+rules["8"] = [["42"], ["42", "8"]]
+rules["11"] = [["42", "31"], ["42", "11", "31"]]
 
 r1 = re.compile(gen_regex())
 res = [r1.fullmatch(sen) for sen in data.split("\n")]
