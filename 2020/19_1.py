@@ -22,5 +22,6 @@ for rule in rulesraw.split("\n"):
     rules[num] = [s.split() for s in r.split(" | ")]
 
 r1 = re.compile(gen_regex())
+print(r1)
 res = [r1.fullmatch(sen) for sen in data.split("\n")]
 print(len([x for x in res if x]))
