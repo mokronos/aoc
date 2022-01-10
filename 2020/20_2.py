@@ -21,7 +21,6 @@ def rot(tile):
         
 
     for x in res:
-        print(x)
         res.append(x[::-1])
     for i in res:
         print(i)
@@ -70,6 +69,3 @@ for r in range(dim):
                     break
 
 print(grid)
-randomlongva = 2
-randomlongva2 = 2
-randomlongva3 = 2
