@@ -21,6 +21,7 @@ def rot(tile):
         
 
     for x in res:
+        print(x)
         res.append(x[::-1])
     for i in res:
         print(i)
