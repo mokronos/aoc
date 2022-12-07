@@ -1,30 +1,24 @@
 data = open("data7.txt", "r").read()
 
 def solve(data):
-
     lines = data.splitlines()
-
-    dirs = {}
-    cwd = []
-
-    i = 0
-    while i < len(lines):
-
-        if lines[i].startswith("$ cd .."):
-            cwd.pop()
-            i += 1
-        elif lines[i].startswith("$ cd"):
-            cwd.append(lines[i].split()[-1])
-            i += 1
-        elif lines[i].startswith("$ ls"):
-            i += 1
-            while not lines[i].startswith("$"):
-                size = lines[i].split()[0]
-                total += int(size)
-                i += 1
-            dirs["/".join(cwd)] = total
-
-        print(cwd)
-    print(dirs)
+    total, _ = recur(lines, 0, [], 0)
+    print(total)
+        
+def recur(lines, cur, i, total):
+    cur = 0
+    line = lines[i]
+    if line.startswith("$ ls"):
+        while not lines[i].startswith("$"):
+            if lines[i].startswith("dir"):
+                i+=1
+            size = int(line.split()[0])
+            cur += size
+            i+=1
+    elif line.startswith("$ cd "):
+        tmp, i = recur(lines, cur, i+1, total)
+        cur += tmp
+    elif line.startswith("$ cd .."):
+        return total + cur, i+1
 
 solve(data)
