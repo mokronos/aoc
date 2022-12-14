@@ -1,3 +1,4 @@
+from ast import literal_eval as eval
 data = open("data13.txt", "r").read()
 
 def solve(data):
