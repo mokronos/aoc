@@ -12,11 +12,18 @@
 //     run2_2,
 // };
 
-mod task3;
-use crate::task3::
+// mod task3;
+// use crate::task3::
+// {
+//     run3_1,
+//     run3_2,
+// };
+
+mod task4;
+use crate::task4::
 {
-    run3_1,
-    run3_2,
+    run4_1,
+    run4_2,
 };
 
 fn main() {
@@ -24,6 +31,8 @@ fn main() {
     // run1_2();
     // run2_1();
     // run2_2();
-    run3_1();
-    run3_2();
+    // run3_1();
+    // run3_2();
+    run4_1();
+    run4_2();
 }
