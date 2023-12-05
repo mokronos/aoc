@@ -19,7 +19,7 @@ pub fn run4_1()
 
     let mut cards: Vec<Card> = Vec::new();
 
-    for line in data {
+    for line in data.lines() {
         cards.push(parse_data(&line));
     }
 
@@ -39,7 +39,7 @@ pub fn run4_2()
 
     let mut cards: Vec<Card> = Vec::new();
 
-    for line in data {
+    for line in data.lines() {
         cards.push(parse_data(&line));
     }
 

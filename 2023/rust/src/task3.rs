@@ -96,12 +96,12 @@ struct Grid {
 }
 
 impl Grid {
-    fn build (data: Vec<String>) -> Grid {
+    fn build (data: String) -> Grid {
         let mut grid = Vec::new();
         let mut width = 0;
         let mut height = 0;
 
-        for line in data {
+        for line in data.lines() {
             let mut row = Vec::new();
             for c in line.chars() {
                 row.push(c);

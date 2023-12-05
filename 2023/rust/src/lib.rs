@@ -1,13 +1,6 @@
-use std::io::{BufReader, BufRead};
-use::std::fs::File;
+use std::fs;
 
-pub fn read_data(path: &str) -> Vec<String>
+pub fn read_data(path: &str) -> String
 {
-    let mut data = Vec::new();
-    let file = File::open(path).expect("file not found");
-    let buf_reader = BufReader::new(file);
-    for line in buf_reader.lines() {
-        data.push(line.expect("Could not parse line"));
-    }
-    data
+    fs::read_to_string(path).expect("Something went wrong reading the file")
 }

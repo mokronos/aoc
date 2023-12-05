@@ -13,7 +13,7 @@ pub fn run2_1()
     };
 
 
-    for line in &data{
+    for line in data.lines(){
         let game = parse_game(line);
 
         if check_round(&game, &real) {
@@ -29,7 +29,7 @@ pub fn run2_2()
     let data = read_data("data/data2.txt");
     let mut total = 0;
 
-    for line in &data{
+    for line in data.lines(){
         let game = parse_game(line);
 
         let power = get_power(&game);

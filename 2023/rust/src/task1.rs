@@ -6,7 +6,7 @@ pub fn run1_1()
     let data = read_data("data/data1.txt");
 
     let mut total: u32 = 0;
-    for line in &data {
+    for line in data.lines() {
         let mut first = 'x';
         let mut last = 'x';
         for c in line.chars() {
@@ -44,7 +44,7 @@ pub fn run1_2()
     }
 
     let mut total: u32 = 0;
-    for line in &data {
+    for line in data.lines() {
         let mut first = 10;
         let mut last = 10;
         for i in 0..line.len() {
