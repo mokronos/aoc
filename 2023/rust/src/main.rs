@@ -47,11 +47,18 @@
 //     run7_2,
 // };
 
-mod task8;
-use crate::task8::
+// mod task8;
+// use crate::task8::
+// {
+//     run8_1,
+//     run8_2,
+// };
+
+mod task9;
+use crate::task9::
 {
-    run8_1,
-    run8_2,
+    run9_1,
+    run9_2,
 };
 
 fn main() {
@@ -69,6 +76,8 @@ fn main() {
     // run6_2();
     // run7_1();
     // run7_2();
-    run8_1();
-    run8_2();
+    // run8_1();
+    // run8_2();
+    run9_1();
+    run9_2();
 }
