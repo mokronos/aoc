@@ -1,3 +1,4 @@
+#[allow(unused)]
 // mod task1; use crate::task1:: { run1_1, run1_2, };
 // mod task2; use crate::task2:: { run2_1, run2_2, };
 // mod task3; use crate::task3:: { run3_1, run3_2, };
@@ -12,7 +13,8 @@
 // mod task12; use crate::task12:: { run12_1, run12_2, };
 // mod task13; use crate::task13:: { run13_1, run13_2, };
 // mod task14; use crate::task14:: { run14_1, run14_2, };
-mod task15; use crate::task15:: { run15_1, run15_2, };
+// mod task15; use crate::task15:: { run15_1, run15_2, };
+mod task16; use crate::task16:: { run16_1, run16_2, };
 
 fn main() {
     // run1_1(); run1_2();
@@ -29,5 +31,6 @@ fn main() {
     // run12_1(); run12_2();
     // run13_1(); run13_2();
     // run14_1(); run14_2();
-    run15_1(); run15_2();
+    // run15_1(); run15_2();
+    run16_1(); run16_2();
 }

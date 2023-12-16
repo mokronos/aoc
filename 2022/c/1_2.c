@@ -2,12 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-void swap(int *a, int *b)
+
+int compare(const void *a, const void *b)
 {
-    int tmp = *a;
-    printf("tmp: %d\n", tmp);
-    *a = *b;
-    *b = tmp;
+    return (*(int *)a - *(int *)b);
 }
 
 int main(void)
@@ -19,17 +17,19 @@ int main(void)
     char buffer[MAX_LENGTH];
 
     char line[MAX_LENGTH];
-    int max_calories = 0;
+    int max_calories[3] = {0};
     int cur_calories = 0;
 
     while (fgets(line, MAX_LENGTH, file) != NULL)
     {
         if (strcmp(line, "\n") == 0)
         {
-            if (cur_calories > max_calories)
+            if (cur_calories > max_calories[0])
             {
-                max_calories = cur_calories;
+                max_calories[0] = cur_calories;
             }
+
+            qsort(max_calories, sizeof(max_calories)/sizeof(int), sizeof(int), compare);
             cur_calories = 0;
             continue;
         }
@@ -42,7 +42,13 @@ int main(void)
     
     fclose(file);
 
-    printf("Max calories: %d\n", max_calories);
+    long sum = 0;
+    for (int i = 0, n = sizeof(max_calories) / sizeof(int); i < n; i++)
+    {
+        sum += max_calories[i];
+    }
+
+    printf("Max calories: %li\n", sum);
 
     return 0;
 }
