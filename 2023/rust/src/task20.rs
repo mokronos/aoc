@@ -31,10 +31,9 @@ pub fn run20_2()
 
 fn solve(data: &str) -> u64
 {
-    let (modules, config) = parse(&data);
-    println!("Modules: {:?}", modules);
-    println!("Config: {:?}", config);
-    dbg!(modules);
+    let (mut modules, config) = parse(&data);
+    let (low, high) = press_button(&mut modules, &config);
+    println!("Low: {}, High: {}", low, high);
     0
 }
 
@@ -156,3 +155,24 @@ fn parse(data: &str) -> (HashMap<String, Module>, HashMap<String, Vec<String>>)
         
     (modules, config)
 }
+
+fn press_button(modules: &mut HashMap<String, Module>,
+                config: &HashMap<String, Vec<String>>) -> (u64, u64)
+{
+    let mut queue = BinaryHeap::new();
+    let mut low = 0;
+    let mut high = 0;
+    queue.push(("broadcaster".to_string(), false));
+    while queue.len() > 0 {
+        let (name, on) = queue.pop().unwrap();
+        println!("{} --> {}", if on { "high" } else { "low" }, name);
+        match on { true => high += 1, false => low += 1 }
+        let module = modules.get_mut(&name);
+        if module.is_none() {
+            continue;
+        }
+        queue.extend(module.unwrap().process((name.clone(), on), &config));
+    }
+    (low, high)
+}
+    
