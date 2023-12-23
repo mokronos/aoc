@@ -19,7 +19,8 @@
 // mod task18; use crate::task18:: { run18_1, run18_2, };
 // mod task19; use crate::task19:: { run19_1, run19_2, };
 // mod task20; use crate::task20:: { run20_1, run20_2, };
-mod task21; use crate::task21:: { run21_1, run21_2, };
+// mod task21; use crate::task21:: { run21_1, run21_2, };
+mod task22; use crate::task22:: { run22_1, run22_2, };
 
 fn main() {
     // run1_1(); run1_2();
@@ -42,5 +43,6 @@ fn main() {
     // run18_1(); run18_2();
     // run19_1(); run19_2();
     // run20_1(); run20_2();
-    run21_1(); run21_2();
+    // run21_1(); run21_2();
+    run22_1(); run22_2();
 }
