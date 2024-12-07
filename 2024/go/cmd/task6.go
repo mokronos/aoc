@@ -100,8 +100,8 @@ func is_loop(grid [][]string, start Coord) bool {
     }
     var dir = 2
 
-    var visited = []State{}
-    visited = append(visited, State{pos, dir})
+    var visited = map[State]bool{}
+    visited[State{pos, dir}] = true
 
     for {
         var d = dirs[dir]
@@ -113,8 +113,8 @@ func is_loop(grid [][]string, start Coord) bool {
         if grid[newPos.y][newPos.x] == "." || grid[newPos.y][newPos.x] == "^" {
             pos = newPos
             state := State{pos, dir}
-            if indexOf(visited, state) == -1 {
-                visited = append(visited, state)
+            if _, ok := visited[state]; !ok {
+                visited[state] = true
             } else {
                 return true
             }
