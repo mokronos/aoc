@@ -73,11 +73,7 @@ func move(grid [][]string, start Coord, move string) Coord {
     return newPos
 }
 
-func part1() {
-    content := internal.ReadInput("data/data15.txt")
-    res := strings.Split(content, "\n\n")
-    grid_str := strings.Split(res[0], "\n")
-    moves_str := strings.Split(res[1], "\n")
+func parse_grid(grid_str []string) ([][]string, Coord) {
 
     grid := [][]string{}
 
@@ -96,8 +92,10 @@ func part1() {
         }
         grid = append(grid, line)
     }
+    return grid, start
+}
 
-
+func parse_moves(moves_str []string) []string {
     moves := []string{}
     for i := 0; i < len(moves_str); i++ {
         if moves_str[i] == "" {
@@ -110,8 +108,43 @@ func part1() {
         }
     }
 
-    print_map(grid)
-    fmt.Println("Start: ", start)
+    return moves
+}
+
+func transform_grid(grid [][]string) [][]string {
+    new_grid := [][]string{}
+    for i := 0; i < len(grid); i++ {
+        line := []string{}
+        for j := 0; j < len(grid[i]); j++ {
+            switch grid[i][j] {
+                case ".":
+                    line = append(line, ".")
+                    line = append(line, ".")
+                case "#":
+                    line = append(line, "#")
+                    line = append(line, "#")
+                case "@":
+                    line = append(line, "@")
+                    line = append(line, ".")
+                case "O":
+                    line = append(line, "[")
+                    line = append(line, "]")
+            }
+        }
+        new_grid = append(new_grid, line)
+    }
+    return new_grid
+}
+
+func part1() {
+    content := internal.ReadInput("data/data15.txt")
+    res := strings.Split(content, "\n\n")
+    grid_str := strings.Split(res[0], "\n")
+    moves_str := strings.Split(res[1], "\n")
+
+
+    grid, start := parse_grid(grid_str)
+    moves := parse_moves(moves_str)
 
     for i := 0; i < len(moves); i++ {
         start = move(grid, start, moves[i])
@@ -127,7 +160,36 @@ func part1() {
     fmt.Println("Part 1: ", total)
 }
 
+func part2() {
+    content := internal.ReadInput("data/data15e.txt")
+    res := strings.Split(content, "\n\n")
+    grid_str := strings.Split(res[0], "\n")
+    moves_str := strings.Split(res[1], "\n")
+
+
+    grid_old, start := parse_grid(grid_str)
+    moves := parse_moves(moves_str)
+
+    grid := transform_grid(grid_old)
+
+    print_map(grid)
+
+    for i := 0; i < len(moves); i++ {
+        // start = move_alt(grid, start, moves[i])
+        start = move(grid, start, moves[i])
+        // fmt.Println("After move: ", i+1)
+        // print_map(grid)
+    }
+
+
+    total := 0
+    total += calc_gps(grid)
+
+
+    fmt.Println("Part 2: ", total)
+}
 
 func main() {
     part1()
+    part2()
 }
