@@ -3,7 +3,6 @@ package main
 import (
 	"aoc/internal"
 	"fmt"
-	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -93,33 +92,6 @@ func create_binary_image(robots []Robot, x_max int, y_max int) [][]int {
         grid[robot.pos.y][robot.pos.x] = 1
     }
     return grid
-}
-
-func create_txt(path string) {
-    file, err := os.Create(path)
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-    file.Close()
-}
-
-func append_txt(path string, content string) {
-    file, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY, 0644)
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-    _, err = file.WriteString(content)
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-    err = file.Close()
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
 }
 
 func part1() {
@@ -219,10 +191,6 @@ func part2() {
     y_max := 103
 
     secs := 10000
-
-    create_txt("tree.txt")
-
-    append_txt("tree.txt", "Start:\n")
     g := create_binary_image(robots, x_max, y_max)
     for _, row := range g {
         s:= []string{}
