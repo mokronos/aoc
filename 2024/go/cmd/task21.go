@@ -105,14 +105,14 @@ func find_num_path(start string, end string) []string {
     return path
 }
 
-var dirPathCache = make(map[PathState][]string)
+var memo = map[MemoKey]int{}
 
 func find_dir_path(start string, end string) []string {
 
-    state := PathState{start, end}
-    if path, exists := dirPathCache[state]; exists {
-        return path
-    }
+    // state := PathState{start, end}
+    // if path, exists := dirPathCache[state]; exists {
+    //     return path
+    // }
 
     var path []string
 
@@ -184,7 +184,7 @@ func find_dir_path(start string, end string) []string {
         }
     }
 
-    dirPathCache[state] = path
+    // dirPathCache[state] = path
 
     return path
 }
@@ -195,28 +195,38 @@ type PathState struct {
 }
 
 type MemoKey struct {
-    code string
-    num_dir_keypads int
+    start string
+    end string
     depth int
 }
 
-func length(path string, num_dir_keypads int, depth int) int {
+func length(start string, end string, depth int) int {
 
-    for i := 0; i < num_dir_keypads; i++ {
-        fmt.Println("Keypad: ", i)
-        new_path := ""
-        path = "A" + path
-        for j := 0; j < len(path) - 1; j++ {
-
-            p := find_dir_path(string(path[j]), string(path[j+1]))
-
-            p = append(p, "A")
-            new_path += strings.Join(p, "")
-        }
-        path = new_path
+    if depth == 0 {
+        return len(find_dir_path(start, end)) + 1
     }
 
-    return len(path)
+    if memo[MemoKey{start, end, depth}] != 0 {
+        return memo[MemoKey{start, end, depth}]
+    }
+
+    path := find_dir_path(start, end)
+
+
+    path = append([]string{"A"}, path...)
+    path = append(path, "A")
+
+    complexity := 0
+    for i := 0; i < len(path) - 1; i++ {
+        start := string(path[i])
+        end := string(path[i+1])
+        l := length(start, end, depth - 1)
+        complexity += l
+    }
+
+    memo[MemoKey{start, end, depth}] = complexity
+
+    return complexity
 }
 
 func solve(code string, num_dir_keypads int) int {
@@ -231,11 +241,23 @@ func solve(code string, num_dir_keypads int) int {
         path = append(path, p...)
     }
 
-    l := length(strings.Join(path, ""), num_dir_keypads, 1)
+
+    complexity := 0
+    path = append([]string{"A"}, path...)
+    for i := 0; i < len(path) - 1; i++ {
+        start := string(path[i])
+        end := string(path[i+1])
+        c := length(start, end, num_dir_keypads-1)
+        complexity += c
+    }
 
     num_part, _ := strconv.Atoi(code[:len(code)-1])
 
-    return l * num_part
+    // fmt.Println("Code: ", code)
+    // fmt.Println("Complexity: ", complexity)
+    // fmt.Println("Num: ", num_part)
+
+    return complexity * num_part
 }
 
 func part1() {
@@ -246,8 +268,7 @@ func part1() {
     codes := res
 
     total := 0
-    for i, code := range codes {
-        fmt.Println("Code ", i+1, ": ", code)
+    for _, code := range codes {
         total += solve(code, 2)
     }
 
@@ -255,6 +276,23 @@ func part1() {
     fmt.Println("Part 1: ", total)
 }
 
+func part2() {
+    content := internal.ReadInput("data/data21.txt")
+    res := strings.Split(content, "\n")
+    res = res[:len(res)-1]
+
+    codes := res
+
+    total := 0
+    for _, code := range codes {
+        total += solve(code, 25)
+    }
+
+
+    fmt.Println("Part 2: ", total)
+}
+
 func main() {
     part1()
+    part2()
 }
